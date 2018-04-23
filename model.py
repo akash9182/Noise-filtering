@@ -53,7 +53,7 @@ class Model(object):
             with tf.Session() as self.sess:
                 self.saver = tf.train.import_meta_graph('/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
                 # self.saver.restore(sess, "/tmp/model.ckpt")
-                self.saver.restore(self.sess, '/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
+                # self.saver.restore(self.sess, '/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700')
         return True
 
 

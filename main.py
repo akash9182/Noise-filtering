@@ -101,6 +101,7 @@ def main(_):
             print('Loading model weights...')
             se_model.load(FLAGS.save_path, FLAGS.weights)
             fm, wav_data = wavfile.read(FLAGS.test_wav)
+            print(fm)
             wavname = FLAGS.test_wav.split('/')[-1]
             if fm != 16000:
                 raise ValueError('16kHz required! Test file is different')
