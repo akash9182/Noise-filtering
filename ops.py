@@ -308,7 +308,7 @@ def conv2d(input_, output_dim, k_h, k_w, stddev=0.05, name="conv2d", with_w=Fals
 def variables_on_gpu0():
     old_fn = tf.get_variable
     def new_fn(*args, **kwargs):
-        with tf.device("/gpu:0"):
+        with tf.device("/CPU:0"):
             return old_fn(*args, **kwargs)
     tf.get_variable = new_fn
     yield

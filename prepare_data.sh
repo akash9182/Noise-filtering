@@ -47,4 +47,4 @@ popd
 
 
 echo 'PREPARING TRAINING DATA...'
-python make_tfrecords.py --force-gen 
+python3 make_tfrecords.py --force-gen

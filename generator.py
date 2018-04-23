@@ -25,7 +25,7 @@ class Generator(object):
                                         initializer=z_init,
                                         trainable=False
                                         )
-                    if z.device != "/device:GPU:0":
+                    if z.device != "/device:CPU:0":
                         # this has to be created into gpu0
                         print('z.device is {}'.format(z.device))
                         assert False
@@ -116,7 +116,7 @@ class AEGenerator(object):
                                         initializer=z_init,
                                         trainable=False
                                         )
-                    if z.device != "/device:GPU:0":
+                    if z.device != "/device:CPU:0":
                         # this has to be created into gpu0
                         print('z.device is {}'.format(z.device))
                         assert False

@@ -77,8 +77,9 @@ def main(_):
     config.allow_soft_placement=True
     udevices = []
     for device in devices:
-        if len(devices) > 1 and 'cpu' in device.name:
+        if len(devices) > 1 and 'CPU' in device.name:
             # Use cpu only when we dont have gpus
+            # udevices.append(device.name)
             continue
         print('Using device: ', device.name)
         udevices.append(device.name)

@@ -49,9 +49,11 @@ class Model(object):
             ckpt_name = model_file
         if not hasattr(self, 'saver'):
             # tf.reset_default_graph()
-            self.saver = tf.train.Saver()
-        self.saver.restore(self.sess, os.path.join(save_path, ckpt_name))
-        print('[*] Read {}'.format(ckpt_name))
+            # self.saver = tf.train.Saver()
+            with tf.Session() as self.sess:
+                self.saver = tf.train.import_meta_graph('/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
+                # self.saver.restore(sess, "/tmp/model.ckpt")
+                self.saver.restore(self.sess, '/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
         return True
 
 
@@ -140,14 +142,13 @@ class SEGAN(Model):
                     with tf.name_scope("device_%s" % idx):
                         with variables_on_gpu0():
                             self.build_model_single_gpu(idx)
-                            # print('here', self.d_vars, type(self.d_vars))
+
                             d_grads = d_opt.compute_gradients(self.d_losses[-1],
                                                               var_list=self.d_vars)
                             g_grads = g_opt.compute_gradients(self.g_losses[-1],
                                                               var_list=self.g_vars)
                             all_d_grads.append(d_grads)
                             all_g_grads.append(g_grads)
-                            # tf.get_variable_scope().reuse_variables()
 
         avg_d_grads = average_gradients(all_d_grads)
         avg_g_grads = average_gradients(all_g_grads)
