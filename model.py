@@ -49,9 +49,12 @@ class Model(object):
             ckpt_name = model_file
         if not hasattr(self, 'saver'):
             # tf.reset_default_graph()
+            tf.initialize_all_variables().run()
             # self.saver = tf.train.Saver()
-            with tf.Session() as self.sess:
-                self.saver = tf.train.import_meta_graph('/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
+            self.saver = tf.train.import_meta_graph( os.path.dirname(os.path.abspath(__file__)) +'/segan_v1.1/SEGAN-41700.meta')
+
+            # with tf.Session() as sess:
+            # saver = tf.train.import_meta_graph('/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700.meta')
                 # self.saver.restore(sess, "/tmp/model.ckpt")
                 # self.saver.restore(self.sess, '/Users/akashrana/Documents/Github_projects/Noise-Filtering-using-GANs/segan_v1.1/SEGAN-41700')
         return True
@@ -577,8 +580,7 @@ class SEGAN(Model):
                 x_[0] = x[beg_i:beg_i + length]
             print('Cleaning chunk {} -> {}'.format(beg_i, beg_i + length))
             fdict = {self.gtruth_noisy[0]: x_}
-            canvas_w = self.sess.run(self.Gs[0],
-                                     feed_dict=fdict)[0]
+            canvas_w = self.sess.run(self.Gs[0], feed_dict=fdict)[0]
             canvas_w = canvas_w.reshape((self.canvas_size))
             print('canvas w shape: ', canvas_w.shape)
             if pad > 0:
